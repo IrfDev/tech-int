@@ -2,23 +2,19 @@
   <div v-if="asyncStatus === 'resolve'" class="review-card flex flex-col items-center">
 
     <div class="card-header flex items-center text-left justify-between">
+      <div class="title">
+        <h4>
+          Overall raiting
+        </h4>
+      </div>
       <div class="raiting">
         <p>
           4.2
         </p>
-      
-        <div class="star-section">
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-            <!-- v-for="(rate,index) in overallRaiting" 
-            :key="index"/ -->
-        <small>
-          65 votes
-        </small>
-        </div>
+      <stars-section
+        :overallRaiting="true"
+        info="65"
+      />
 
 
       </div>
@@ -37,27 +33,9 @@
             <h4>
                 {{`${apiData.name.first} ${apiData.name.last}`}}
             </h4>
-            <div class="star-section">
-             <span
-              class="star" 
-             />
-             <span
-              class="star" 
-             />
-             <span
-              class="star" 
-             />
-             <span
-              class="star" 
-             />
-             <span
-              class="star" 
-             />
-             <!-- v-for="(rate, index) in individualRaiting" :key="index" -->
-            <small>
-              6 days ago
-            </small>
-            </div>
+            <stars-section
+              info="6 days ago"
+            />
           </div>
         </div>
       <div class="card-review">
@@ -81,16 +59,28 @@
     </div>
     
   </div>
-  <div v-else>
+  <div v-else-if="asyncStatus ==='loading'">
     <h1>Loading</h1>
+  </div>
+  <div v-else>
+    <pre>
+      {{
+        JSON.stringify(apiData, null, 2)
+      }}
+    </pre>
   </div>
 </template>
 
 <script>
+import StarsSection from '@/components/Ui/StarsSection.vue';
 // When you click on the stars, change the background color. { JUST FOR THE SECOND STAR COMPONENT }
 
   export default {
     name: 'ReviewCard',
+
+    components: {
+      StarsSection,
+    },
 
   data() {
     return {
@@ -144,13 +134,20 @@
     display: flex; 
     align-items: center;
     text-align: left;
+    flex-flow: row wrap;
     justify-content: space-between;
     border-bottom: #D4DDDD .3px solid;
     padding: 7% 10%;
-    
-    h4{
+
+    .title{
+      flex-basis: 100%;
       font-weight: 700;
+      h4{
+        margin-block-start:.5em;
+        margin-block-end: 0;  
+      }
     }
+  
 
     p{
       color: #40918C;
@@ -209,26 +206,6 @@
       margin-block-end:.5em;
     }
   }
-  .star-section{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex:1;
-
-    .star{
-      padding: .45em;
-      color: red;
-      background-image: url(/star.png);
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
-    small{
-      margin-left: 1em;
-    }
-    
-    color:#C1C1C1;
-  }
+  
 }
 </style>
