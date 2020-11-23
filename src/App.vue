@@ -1,15 +1,20 @@
 <template>
   <div id="app">
     <div class="row">
-      <div class="column">
           <review-card/>
-      </div>
+          <review-card/>
+          <review-card/>
+          <review-card/>
+          <review-card/>
+          <review-card/>
+          <review-card/>
     </div>
   </div>
 </template>
 
 <script>
 import ReviewCard from '@/components/Section/ReviewCard.vue';
+import '../src/styles/tailwind.css'
 
 export default {
   name: 'App',
@@ -19,17 +24,23 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+html{
+  background-color: #CAD4D4;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin:0;
 }
 .row{
   display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 
 </style>

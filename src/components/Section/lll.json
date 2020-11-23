@@ -1,0 +1,58 @@
+
+ {
+     "gender": "female",
+     "name": {
+          "title": "Ms",
+          "first": "Dalva",
+          "last": "Souza"
+     },
+     "location": {
+          "street": {
+               "number": 6700,
+               "name": "Rua Treze "
+          },
+          "city": "Várzea Paulista",
+          "state": "Mato Grosso do Sul",
+          "country": "Brazil",
+          "postcode": 25119,
+          "coordinates": {
+               "latitude": "-75.2889",
+               "longitude": "99.7971"
+          },
+          "timezone": {
+               "offset": "0:00",
+               "description": "Western Europe Time, London, Lisbon, Casablanca"
+          }
+     },
+     "email": "dalva.souza@example.com",
+     "login": {
+          "uuid": "3ff7adf6-23d8-428d-b0e1-dc38355f2e80",
+          "username": "bigsnake819",
+          "password": "thunderb",
+          "salt": "l1FjG3pa",
+          "md5": "e1d4ead5dcce2498983e26b37941c7c5",
+          "sha1": "c96e126a99d2662310995f14184f983b2f14ddba",
+          "sha256": "9d75fb346624f4a96c4557e58a0377e1cabfd4e8453cd90cc742ba4616f1671d"
+     },
+     "dob": {
+          "date": "1957-09-11T00:05:13.913Z",
+          "age": 63
+     },
+     "registered": {
+          "date": "2011-04-17T02:54:45.854Z",
+          "age": 9
+     },
+     "phone": "(33) 9195-0681",
+     "cell": "(38) 7769-8132",
+     "id": {
+          "name": "",
+          "value": null
+     },
+     "picture": {
+          "large": "https://randomuser.me/api/portraits/women/23.jpg",
+          "medium": "https://randomuser.me/api/portraits/med/women/23.jpg",
+          "thumbnail": "https://randomuser.me/api/portraits/thumb/women/23.jpg"
+     },
+     "nat": "BR"
+}
+  
