@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="row">
+      <div class="column">
+          <review-card/>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ReviewCard from '@/components/Section/ReviewCard.vue';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    ReviewCard,
+  },
 }
 </script>
 
@@ -25,4 +28,8 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+.row{
+  display: flex;
+}
+
 </style>
