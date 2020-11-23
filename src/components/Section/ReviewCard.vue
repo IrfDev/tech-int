@@ -1,5 +1,5 @@
 <template>
-  <div  v-if="asyncStatus === 'resolve'" class="review-card flex flex-col items-center">
+  <div :class="{dark: isRated}" v-if="asyncStatus === 'resolve'" class="review-card flex flex-col items-center">
     <div class="card-header flex items-center text-left justify-between">
       <div class="title">
         <h4>
@@ -58,8 +58,8 @@
     
   </div>
 
-  <div v-else-if="asyncStatus ==='loading'">
-    <h1>Loading</h1>
+  <div v-else-if="asyncStatus ==='loading'" class="loading">
+    <h1></h1>
   </div>
 
   <div v-else>
@@ -104,7 +104,6 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
 
   methods: {
      handleRate(rate){
-      console.log("zzcs")
       this.isRated = true
       this.rate = rate
     },
@@ -135,13 +134,27 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
 </script>
 
 <style lang="scss" scoped>
+.loading{
+  width: 20em;
+}
+ 
 .review-card{
+  animation: fadeInUp .4s ease-out forwards;
   margin: 1em 0;
   background-color: #fff;
   // Fonts
   font-family: Montserrat;
   border-radius: 25px;
-  max-width: 20em;
+  width: 20em;
+  &>*{
+    animation: fadeInDown .5s ease-in forwards;
+  }
+
+    transition: all ease-in .5s;
+  &:hover{
+    transition: all ease-out .4s;
+    box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.356);
+  }
 
   .card-header{
     display: flex; 
@@ -181,6 +194,7 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
       background-image: linear-gradient(
         184deg, rgba(243,246,246,1) 0%, rgba(243,246,246,1) 100%
       );
+      color:#2F4051!important;
       font-weight: 900;
       border-radius: 12px;
       background-size: 100%; 
@@ -209,6 +223,11 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
     .card-review{
       text-align: left;
       font-weight: 400;
+        p{
+          text-overflow: ellipsis;
+          width: 100%;
+          overflow: hidden;
+        }
     }
   }
 
@@ -220,6 +239,39 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
       margin-block-end:.5em;
     }
   }
-  
+
+    &.dark{
+      transition: all ease-in-out .5s;
+      background-color: black;
+      color: white!important;
+    }
 }
+@keyframes fadeInUp {
+    0%{
+      opacity: .5;
+      filter: blur(70%);
+      transform: translateY(2em);
+      }
+
+    100%{
+      opacity: 1;
+      filter: blur(0%);
+
+    }
+
+  }
+
+@keyframes fadeInDown {
+    0%{
+      opacity: .5;
+      filter: blur(70%);
+      transform: translateY(-1em);
+      }
+
+    100%{
+      opacity: 1;
+      filter: blur(0%);
+
+    }
+  }
 </style>
