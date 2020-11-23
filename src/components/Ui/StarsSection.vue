@@ -6,7 +6,8 @@
       :key="index"
       class="star"
       :overallRaiting="overallRaiting"
-      v-on:click.native="handleRate(index)"
+      :active="rate <= index ? false : true"
+      v-on:click.native="handleRate(index+1)"
     />
   <small v-if="overallRaiting === false">
     {{info}}
@@ -23,10 +24,16 @@ import Star from '@/components/Ui/Star.vue';
   export default {
   name: 'StarsSection',
 
+  data() {
+    return {
+      rate: 0
+    }
+  },
+
   methods: {
     handleRate(rate){
-      console.log("[From Star Section]:",rate)
-      this.$emit('rateReview', rate)
+       this.$emit('rate-review', rate)
+       this.rate = rate
     },
   },
 
