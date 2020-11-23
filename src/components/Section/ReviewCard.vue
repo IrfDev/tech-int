@@ -1,6 +1,5 @@
 <template>
-  <div v-if="asyncStatus === 'resolve'" class="review-card flex flex-col items-center">
-
+  <div  v-if="asyncStatus === 'resolve'" class="review-card flex flex-col items-center">
     <div class="card-header flex items-center text-left justify-between">
       <div class="title">
         <h4>
@@ -13,10 +12,9 @@
         </p>
       <stars-section
         :overallRaiting="true"
-        info="65"
+        :info="votes"
+        v-on:rate-review="handleRate"
       />
-
-
       </div>
       <div class="plus">
         +
@@ -59,9 +57,11 @@
     </div>
     
   </div>
+
   <div v-else-if="asyncStatus ==='loading'">
     <h1>Loading</h1>
   </div>
+
   <div v-else>
     <pre>
       {{
@@ -69,6 +69,7 @@
       }}
     </pre>
   </div>
+
 </template>
 
 <script>
@@ -85,7 +86,9 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
   data() {
     return {
       asyncStatus: '',
-      apiData: {}
+      apiData: {},
+      isRated: false,
+      rate: 0
     }
   },
 
@@ -93,29 +96,39 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
     this.fetchApi();
   },
 
+  computed: {
+      votes() {
+        return this.apiData ? this.apiData.dob.age + this.rate : ''
+      },
+    },
+
   methods: {
+     handleRate(rate){
+      console.log("zzcs")
+      this.isRated = true
+      this.rate = rate
+    },
+
+
     async fetchApi() {
       this.asyncStatus = 'loading'
 
-    try {
-      let data = await fetch('https://randomuser.me/api');
+      try {
+        let data = await fetch('https://randomuser.me/api');
 
-      let {results: parseData} = await data.json();
+        let {results: parseData} = await data.json();
 
-      this.apiData = parseData[0]
-      this.asyncStatus = 'resolve'
+        this.apiData = parseData[0]
+        this.asyncStatus = 'resolve'
 
 
-    } catch (error) {
-      this.asyncStatus = 'error'
-      this.apiData = {
-        error,
-        message: error.message
+      } catch (error) {
+        this.asyncStatus = 'error'
+        this.apiData = {
+          error,
+          message: error.message
+        }
       }
-    }
-
-      
-
     }
   },
   }
@@ -158,8 +171,9 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
     .raiting{
       display: flex;
       align-items:center;
-      flex-direction: row;
+      flex-flow: row wrap;
       justify-content: space-around;
+      flex-basis: 70%;
     }
 
     .plus{
@@ -176,8 +190,8 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
   }
 
   .card-body{
-    padding-top: 10%;
     padding: 11%;
+    padding-top: 7%;
 
     .card-information{
       display: flex;

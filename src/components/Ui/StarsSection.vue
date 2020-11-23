@@ -1,26 +1,39 @@
 <template>
   <div class="star-section">
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-          <span class="star" />
-            <!-- v-for="(rate,index) in overallRaiting" 
-            :key="index"/ -->
-        <small>
-          <div v-if="overallRaiting === false">
-            {{info}}
-          </div>
-          <div v-else>
-            {{votes}} votes
-          </div>
-        </small>
-        </div>
+    <star
+      v-for="(star,index) in stars" 
+      :class="index > stars.length"
+      :key="index"
+      class="star"
+      :overallRaiting="overallRaiting"
+      v-on:click.native="handleRate(index)"
+    />
+  <small v-if="overallRaiting === false">
+    {{info}}
+  </small>
+  <small v-else>
+    {{votes}} votes
+  </small>
+</div>
 </template>
 
 <script>
+import Star from '@/components/Ui/Star.vue';
+
   export default {
-    name: 'StarsSection',
+  name: 'StarsSection',
+
+  methods: {
+    handleRate(rate){
+      console.log("[From Star Section]:",rate)
+      this.$emit('rateReview', rate)
+    },
+  },
+
+  components: {
+    Star,
+  },
+
     props: {
       info: {
         type: [String, Number],
@@ -30,12 +43,18 @@
       overallRaiting:{
         type: Boolean,
         default: false
-      }
+      },
+
     },
 
     computed: {
       votes() {
         return this.info
+      },
+
+      stars(){
+        // I'm using an new Array from Array constructor to simmulate a immutable state
+        return new Array(5)
       }
     },
     
@@ -46,21 +65,10 @@
 
   .star-section{
     display: flex;
-    justify-content: space-around;
     align-items: center;
     flex:1;
-
-    .star{
-      padding: .45em;
-      color: red;
-      background-image: url(/star.png);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
-
     small{
-      margin-left: 1em;
+      margin-left: .5em;
     }
     
     color:#C1C1C1;
