@@ -243,7 +243,7 @@ import StarsSection from '@/components/Ui/StarsSection.vue';
     &.dark{
       transition: all ease-in-out .5s;
       background-color: black;
-      color: white!important;
+      color: #eee!important;
     }
 }
 @keyframes fadeInUp {
